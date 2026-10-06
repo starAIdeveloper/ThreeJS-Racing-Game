@@ -9,8 +9,8 @@ try:
   except Exception:time.sleep(.1)
  with sync_playwright() as p:
   b=p.chromium.launch(headless=True,executable_path=os.environ.get('CHROMIUM_PATH'),args=['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--enable-webgl','--ignore-gpu-blocklist'])
-  page=b.new_page(viewport={'width':1440,'height':900});errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
-  page.goto('http://127.0.0.1:5180');page.wait_for_function('window.racingDiagnostics && window.racingDiagnostics().webgl');page.locator('#start').click();page.wait_for_function('racingDiagnostics().time>.2',timeout=60000)
+  page=b.new_page(viewport={'width':1440,'height':900});errors=[];page.on('pageerror',lambda e:(errors.append(str(e)),print('PAGE ERROR',e,flush=True)))
+  page.goto('http://127.0.0.1:5180');page.wait_for_function('window.racingDiagnostics && window.racingDiagnostics().webgl');page.locator('#start').click();page.wait_for_timeout(1000);print(page.evaluate('racingDiagnostics()'),flush=True);page.wait_for_function('racingDiagnostics().time>.2',timeout=60000)
   page.keyboard.down('w');page.wait_for_function('racingDiagnostics().speed>5',timeout=30000);page.keyboard.down('Shift');page.wait_for_function('racingDiagnostics().nitro<99',timeout=30000)
   d=page.evaluate('racingDiagnostics()');assert d['speed']>0 and d['distance']>0 and d['nitro']<100,d
   page.keyboard.up('Shift');page.keyboard.up('w');page.keyboard.press('c');page.screenshot(path=str(r/'docs/desktop.png'))

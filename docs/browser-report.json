@@ -1,0 +1,13 @@
+{
+  "passed": [
+    "WebGL render",
+    "acceleration",
+    "nitro",
+    "camera switch",
+    "pause freezes clock",
+    "restart resets progress",
+    "touch throttle",
+    "mobile layout"
+  ],
+  "page_errors": []
+}
