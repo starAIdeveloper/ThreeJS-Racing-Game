@@ -1,0 +1,10 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {createRace,updateRace,track,LENGTH,standings} from '../src/race.js';
+test('closed track',()=>{const a=track(0),b=track(LENGTH);assert.ok(Math.abs(a.x-b.x)<1e-8);assert.ok(Math.abs(a.z-b.z)<1e-8);});
+test('ready and paused do not advance',()=>{const r=createRace();updateRace(r,{throttle:true},.05);assert.equal(r.time,0);r.phase='paused';updateRace(r,{},.05);assert.equal(r.player.s,0);});
+test('acceleration braking and nonnegative speed',()=>{const r=createRace();r.phase='racing';for(let i=0;i<100;i++)updateRace(r,{throttle:true},.05);assert.ok(r.player.speed>0);for(let i=0;i<100;i++)updateRace(r,{brake:true},.05);assert.equal(r.player.speed,0);});
+test('nitro drains and recharges',()=>{const r=createRace();r.phase='racing';updateRace(r,{throttle:true,nitro:true},.05);assert.ok(r.nitro<100);updateRace(r,{},.05);assert.ok(r.nitro>98);});
+test('offroad slows and lane clamps',()=>{const r=createRace();r.phase='racing';r.player.speed=50;r.player.lane=11;updateRace(r,{steer:1},.05);assert.equal(r.player.lane,11);assert.ok(r.player.speed<50);});
+test('lap records best time and third crossing finishes',()=>{const r=createRace();r.phase='racing';r.player.s=LENGTH-.5;r.player.speed=50;updateRace(r,{throttle:true},.05);assert.equal(r.lap,2);assert.ok(r.best>0);r.player.s=LENGTH*3-.5;updateRace(r,{throttle:true},.05);assert.equal(r.phase,'finished');const end=r.player.s;updateRace(r,{},.05);assert.equal(r.player.s,end);});
+test('collision slows car',()=>{const r=createRace();r.phase='racing';r.player.speed=40;r.bots[0].s=0;r.bots[0].lane=0;updateRace(r,{throttle:true},.05);assert.ok(r.player.speed<40);assert.ok(r.contact>0);});
+test('standings rank progress',()=>{const r=createRace();r.player.s=999;assert.equal(standings(r)[0],r.player);});
+test('invalid timestep rejected and long frames capped',()=>{const r=createRace();r.phase='racing';assert.throws(()=>updateRace(r,{},NaN));updateRace(r,{},2);assert.equal(r.time,.05);});
