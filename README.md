@@ -1,13 +1,11 @@
 # Coastline Rush
 Playable Three.js arcade racing game inspired by a coastal racing reference. Eight racers, three laps, chase/bonnet cameras, nitro, braking, offroad slowdown, car contact, leaderboard, lap times, minimap, and mobile buttons. Cars, road, buildings, mountains, and scenery use original procedural geometry. The art is stylized rather than photorealistic.
 
+![Coastal driving concept with a chase camera, sunset scenery, speedometer and route navigation](docs/reference/car-1.png)
+
 ## Design reference gallery
 
 Five user-supplied Roadshift Simulator visual concepts. These are design references, not screenshots of the implemented Coastline Rush game.
-
-### Coastal highway
-
-![Coastal driving concept with a chase camera, sunset scenery, speedometer and route navigation](docs/reference/car-1.png)
 
 ### Cockpit view
 
