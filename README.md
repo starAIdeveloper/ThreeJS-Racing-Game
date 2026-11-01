@@ -1,6 +1,30 @@
 # Coastline Rush
 Playable Three.js arcade racing game inspired by a coastal racing reference. Eight racers, three laps, chase/bonnet cameras, nitro, braking, offroad slowdown, car contact, leaderboard, lap times, minimap, and mobile buttons. Cars, road, buildings, mountains, and scenery use original procedural geometry. The art is stylized rather than photorealistic.
 
+## Design reference gallery
+
+Five user-supplied Roadshift Simulator visual concepts. These are design references, not screenshots of the implemented Coastline Rush game.
+
+### Coastal highway
+
+![Coastal driving concept with a chase camera, sunset scenery, speedometer and route navigation](docs/reference/car-1.png)
+
+### Cockpit view
+
+![First-person cockpit concept with dashboard instruments, mirrors and coastal route navigation](docs/reference/car-2.png)
+
+### City driving
+
+![Urban driving concept with city traffic, a chase camera and navigation overlays](docs/reference/car-3.png)
+
+### Garage and customization
+
+![Garage concept with vehicle performance statistics, wheel choices, paint and customization controls](docs/reference/car-4.png)
+
+### Alpine route
+
+![Mountain driving concept with alpine scenery, hairpin navigation and a chase camera](docs/reference/car-5.png)
+
 ## Run
 Node.js 22 or newer. Run `npm install`, then `npm run dev`. Open the local URL. `npm run build` produces static files in dist. Serve those files with an HTTP server; do not open index.html with file://.
 
